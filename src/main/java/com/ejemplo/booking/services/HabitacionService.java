@@ -1,6 +1,7 @@
 package com.ejemplo.booking.services;
 
 import com.ejemplo.booking.model.Habitacion;
+import com.ejemplo.booking.model.Reserva;
 import com.ejemplo.booking.repositories.HabitacionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -60,6 +61,14 @@ public class HabitacionService {
             return ResponseEntity.status(OK).build();
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+    public ResponseEntity obtenerReservasDeHabitacion(Integer id) {
+        try {
+            Habitacion habitacion = habitacionRepository.findById(id).orElseThrow(() -> new HttpClientErrorException(HttpStatus.BAD_REQUEST,"Habitacion no encontrada"));
+            return ResponseEntity.ok(habitacion.getReservas());
+        } catch (Exception e) {
+            return ResponseEntity.status(INTERNAL_SERVER_ERROR).build();
         }
     }
 }

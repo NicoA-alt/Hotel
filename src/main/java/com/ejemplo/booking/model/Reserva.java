@@ -1,6 +1,7 @@
 package com.ejemplo.booking.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,9 +21,11 @@ public class Reserva {
     private Integer id;
 
     @Temporal(TemporalType.DATE)
+    @NotNull
     private Date fechaInicio;
 
     @Temporal(TemporalType.DATE)
+    @NotNull
     private Date fechaFin;
 
     // Relación con Habitación
@@ -38,7 +41,7 @@ public class Reserva {
             inverseJoinColumns = @JoinColumn(name = "huesped_id")
     )
     private List<Huesped> huespedes;
-
+    @NotNull
     private String estado;
 
 }

@@ -1,6 +1,7 @@
 package com.ejemplo.booking.controller;
 
 import com.ejemplo.booking.model.Habitacion;
+import com.ejemplo.booking.model.Reserva;
 import com.ejemplo.booking.services.HabitacionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +31,10 @@ public class HabitacionController {
     @GetMapping("/{id}")
     public ResponseEntity<Habitacion> obtenerDetallesHabitacion(@PathVariable Integer id) {
         return this.habitacionService.obtenerHabitacionPorId(id);
+    }
+    @GetMapping("/{id}/reservas")
+    public ResponseEntity<List<Reserva>> obtenerReservasDeHabitacion(@PathVariable Integer id) {
+        return this.habitacionService.obtenerReservasDeHabitacion(id);
     }
 
     @PutMapping("/{id}")

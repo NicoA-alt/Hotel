@@ -2,6 +2,7 @@ package com.ejemplo.booking.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,10 +19,13 @@ public class Habitacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
+    @NotNull
     private String tipo;
+    @NotNull
     private boolean disponible;
+    @NotNull
     private double precio;
+    @NotNull
     private int capacidad;
 
     // Relación con Reservas
