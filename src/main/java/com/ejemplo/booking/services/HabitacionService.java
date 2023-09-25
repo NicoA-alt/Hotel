@@ -1,14 +1,17 @@
 package com.ejemplo.booking.services;
 
 import com.ejemplo.booking.model.Habitacion;
+import com.ejemplo.booking.model.HabitacionDTO;
 import com.ejemplo.booking.model.Reserva;
 import com.ejemplo.booking.repositories.HabitacionRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.*;
@@ -18,11 +21,24 @@ public class HabitacionService {
 
     @Autowired
     private HabitacionRepository habitacionRepository;
+    private final ModelMapper modelMapper = new ModelMapper();
     public HabitacionService(HabitacionRepository habitacionRepository){
         this.habitacionRepository = habitacionRepository;
     }
     public List<Habitacion> listarHabitaciones() {
         return habitacionRepository.findAll();
+    }
+    public List<HabitacionDTO> obtenerHabitacionesDisponibles() {
+        List<Habitacion> habitaciones = habitacionRepository.findAll();
+        List<HabitacionDTO> habitacionesDisponibles = new ArrayList<>();
+
+        for (Habitacion habitacion : habitaciones) {
+            if (habitacion.isDisponible()) {
+                habitacionesDisponibles.add(modelMapper.map(habitacion, HabitacionDTO.class));
+            }
+        }
+
+        return habitacionesDisponibles;
     }
 
     public ResponseEntity agregarHabitacion(Habitacion habitacion) {

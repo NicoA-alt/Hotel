@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,8 +22,12 @@ public class Huesped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Size(max = 50)
+    @Pattern(regexp="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+")
     @NotNull
     private String nombre;
+    @Size(max = 50)
+    @Pattern(regexp="[A-Za-záéíóúÁÉÍÓÚñÑ\\s]+")
     @NotNull
     private String apellido;
     @Pattern(regexp="^[FM]\\d{1}\\.\\d{3}\\.\\d{3}|\\d{2}\\.\\d{3}\\.\\d{3}")
