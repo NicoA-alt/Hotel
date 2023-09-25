@@ -32,7 +32,6 @@ public class ReservaService {
     }
     public ResponseEntity crearReserva(Reserva reserva) {
         try{
-            // Verificar que la cantidad de huéspedes no supere la capacidad de la habitación
             if (!fechasDisponibles(reserva)) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Las fechas seleccionadas no están disponibles");
             }

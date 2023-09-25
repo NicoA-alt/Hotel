@@ -2,7 +2,6 @@ package com.ejemplo.booking.services;
 
 import com.ejemplo.booking.model.Habitacion;
 import com.ejemplo.booking.model.HabitacionDTO;
-import com.ejemplo.booking.model.Reserva;
 import com.ejemplo.booking.repositories.HabitacionRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,8 +52,8 @@ public class HabitacionService {
         try {
             Habitacion habitacion = habitacionRepository.findById(id).orElseThrow(() -> new HttpClientErrorException(HttpStatus.BAD_REQUEST,"Habitacion no encontrada"));
             return ResponseEntity.ok(habitacion);
-        } catch (HttpClientErrorException e) {
-            return ResponseEntity.status(e.getRawStatusCode()).body(e.getResponseBodyAsString());
+        } catch (Exception e) {
+            return ResponseEntity.status(INTERNAL_SERVER_ERROR).build();
         }
     }
 
