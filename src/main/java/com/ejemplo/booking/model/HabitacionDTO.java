@@ -10,11 +10,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class HabitacionDTO {
-    @NotNull
     private String tipo;
-    @NotNull
     private double precio;
-    @NotNull
     private int capacidad;
-
 }

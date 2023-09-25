@@ -35,7 +35,7 @@ public class HuespedController {
         return this.huespedService.obtenerHuespedPorId(id);
     }
 
-    @GetMapping("/{id}/getReservaHuesped")
+    @GetMapping("/{id}/reservas")
     public List<ReservaDTO> getReservaHuesped(@PathVariable Integer id){
         return huespedService.getReservaHuesped(id);
     }

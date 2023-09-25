@@ -12,7 +12,7 @@ import java.util.List;
 
 @Repository
 public interface ReservaRepository extends JpaRepository<Reserva, Integer> {
-    @Query("SELECT r FROM Reserva r WHERE r.habitacion = :habitacion " + "AND r.fechaFin >= :fechaInicio AND r.fechaInicio <= :fechaFin")
+    @Query("SELECT r FROM Reserva r WHERE r.habitacion = :habitacion AND r.fechaFin >= :fechaInicio AND r.fechaInicio <= :fechaFin")
     List<Reserva> findReservasByHabitacionAndFechas(
             @Param("habitacion") Habitacion habitacion,
             @Param("fechaInicio") Date fechaInicio,
