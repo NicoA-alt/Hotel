@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,10 +25,11 @@ public class Huesped {
     private String nombre;
     @NotNull
     private String apellido;
-
+    @Pattern(regexp="^[FM]\\d{1}\\.\\d{3}\\.\\d{3}|\\d{2}\\.\\d{3}\\.\\d{3}")
     @NotNull
     private String dni;
     @Email
+    @NotNull
     private String email;
     @NotNull
     private String telefono;

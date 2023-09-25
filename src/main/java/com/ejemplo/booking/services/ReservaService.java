@@ -21,15 +21,31 @@ public class ReservaService {
 
     public ReservaService(ReservaRepository reservaRepository){ this.reservaRepository = reservaRepository;}
     public List<Reserva> obtenerReservas(){return reservaRepository.findAll();}
+    public boolean fechasDisponibles(Reserva nuevaReserva) {
+        List<Reserva> reservas = reservaRepository.findReservasByHabitacionAndFechas(
+                nuevaReserva.getHabitacion(),
+                nuevaReserva.getFechaInicio(),
+                nuevaReserva.getFechaFin()
+        );
+
+        return reservas.isEmpty();
+    }
     public ResponseEntity crearReserva(Reserva reserva) {
         try{
+            // Verificar que la cantidad de huéspedes no supere la capacidad de la habitación
+            if (!fechasDisponibles(reserva)) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Las fechas seleccionadas no están disponibles");
+            }
+            if (reserva.getHabitacion().getCapacidad() < reserva.getHuespedes().size()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La cantidad de huéspedes supera la capacidad de la habitación");
+            }
+
             reservaRepository.save(reserva);
             return ResponseEntity.status(CREATED).build();
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-
     public ResponseEntity obtenerReservaPorId(Integer id) {
         try {
             Reserva reserva = reservaRepository.findById(id).orElseThrow(() -> new HttpClientErrorException(HttpStatus.BAD_REQUEST,"Reserva no encontrada"));
